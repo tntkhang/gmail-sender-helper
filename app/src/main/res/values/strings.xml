@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GMailSenderExample</string>
+    <string name="title">GMailSenderExample Test Email</string>
+    <string name="body">This email was sent from GMailSenderExample</string>
+    <string name="hint_email">example@gmail.com</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_body">Body</string>
+    <string name="send_mail">Send</string>
+</resources>
