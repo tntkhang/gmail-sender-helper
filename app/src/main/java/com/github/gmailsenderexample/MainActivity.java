@@ -6,7 +6,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.tntkhang.gmailsenderlibrary.GMailSender;
-import com.github.tntkhang.gmailsenderlibrary.GMailSenderHelper;
 import com.github.tntkhang.gmailsenderlibrary.IListener;
 
 import butterknife.BindView;
@@ -39,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         String title = edtTitle.getText().toString();
         String body = edtBody.getText().toString();
 
-        GMailSenderHelper senderHelper = new GMailSenderHelper("unknowableee4@gmail.com", "E3knowable");
-        senderHelper.sendMail(title, body, emailAddress, new IListener() {
+        GMailSender senderHelper = new GMailSender("sender-email@gmail.com", "sender-email-password");
+        senderHelper.sendMail(title, body, emailAddress, getString(R.string.app_name), new IListener() {
             @Override
             public void sendSuccess() {
                 Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
