@@ -30,6 +30,10 @@ android {
     compileSdkVersion 28
 
 
+    lintOptions {
+        abortOnError false
+    }
+
 
     defaultConfig {
         minSdkVersion 19

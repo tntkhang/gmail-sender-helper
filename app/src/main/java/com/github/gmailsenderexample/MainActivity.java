@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         String title = edtTitle.getText().toString();
         String body = edtBody.getText().toString();
 
-        GMailSender senderHelper = new GMailSender("sender-email@gmail.com", "sender-email-password");
+        GMailSender senderHelper = new GMailSender("your-email@gmail.com", "email-password");
         senderHelper.sendMail(title, body, emailAddress, getString(R.string.app_name), new IListener() {
             @Override
             public void sendSuccess() {
