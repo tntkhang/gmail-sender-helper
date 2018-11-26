@@ -1,23 +1,11 @@
 package com.github.tntkhang.gmailsenderlibrary;
 
-import android.os.AsyncTask;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.Security;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
 import javax.mail.Authenticator;
-import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 public class GMailSenderAuthenticator extends Authenticator {
     static {
@@ -27,9 +15,9 @@ public class GMailSenderAuthenticator extends Authenticator {
     private String user;
     private String password;
     private Session session;
-    private IListener listener;
+    private GmailListener listener;
 
-    public GMailSenderAuthenticator(String username, String password, IListener listener) {
+    GMailSenderAuthenticator(String username, String password, GmailListener listener) {
         this.user = username;
         this.password = password;
         this.listener = listener;
@@ -52,90 +40,8 @@ public class GMailSenderAuthenticator extends Authenticator {
         return new PasswordAuthentication(user, password);
     }
 
-    public synchronized void sendMail(String subject, String body, String sender, String recipients) {
-        SendMailTask sendMailTask = new SendMailTask(subject, body, sender, recipients, listener);
+    synchronized void sendMail(String subject, String body, String sender, String recipients) {
+        SendMailTask sendMailTask = new SendMailTask(subject, body, sender, recipients, listener, session);
         sendMailTask.execute();
-    }
-
-    public class ByteArrayDataSource implements DataSource {
-        private byte[] data;
-        private String type;
-
-        public ByteArrayDataSource(byte[] data, String type) {
-            super();
-            this.data = data;
-            this.type = type;
-        }
-
-        public ByteArrayDataSource(byte[] data) {
-            super();
-            this.data = data;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getContentType() {
-            if (type == null)
-                return "application/octet-stream";
-            else
-                return type;
-        }
-
-        public InputStream getInputStream() throws IOException {
-            return new ByteArrayInputStream(data);
-        }
-
-        public String getName() {
-            return "ByteArrayDataSource";
-        }
-
-        public OutputStream getOutputStream() throws IOException {
-            throw new IOException("Not Supported");
-        }
-    }
-
-    private class SendMailTask extends AsyncTask<String, Void, Void> {
-        private String subject;
-        private String body;
-        private String sender;
-        private String recipients;
-        private IListener listener;
-
-        SendMailTask(String subject, String body, String sender, String recipients, IListener listener) {
-            this.subject = subject;
-            this.body = body;
-            this.sender = sender;
-            this.recipients = recipients;
-            this.listener = listener;
-        }
-
-        protected Void doInBackground(String... urls) {
-            try{
-                MimeMessage message = new MimeMessage(session);
-                DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
-                message.setSender(new InternetAddress(sender));
-                message.setSubject(subject);
-                message.setDataHandler(handler);
-                if (recipients.indexOf(',') > 0)
-                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
-                else
-                    message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
-                Transport.send(message);
-            }catch(Exception e){
-                e.printStackTrace();
-                if (listener != null) {
-                    listener.sendFail(e.getMessage());
-                }
-            }
-            return null;
-        }
-
-        protected void onPostExecute(Void feed) {
-            if (listener != null) {
-                listener.sendSuccess();
-            }
-        }
     }
 }
