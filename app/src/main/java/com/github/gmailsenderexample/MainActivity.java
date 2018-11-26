@@ -34,15 +34,15 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_send)
     void sendEmail() {
-        String emailAddress = edtEmailAddress.getText().toString();
+        String emailAddress = edtEmailAddress.getText().toString(); // abc@gmail.com,edgh@gmail.com,xyz@gmail.com
         String title = edtTitle.getText().toString();
         String body = edtBody.getText().toString();
 
         GMailSender.withAccount("your-email@gmail.com", "email-password")
                 .withTitle(title)
                 .withBody(body)
-                .withEmailAddress(emailAddress)
                 .withSender(getString(R.string.app_name))
+                .toEmailAddress(emailAddress) // one or multiple addresses separated by a comma
                 .withListenner(new GmailListener() {
                     @Override
                     public void sendSuccess() {

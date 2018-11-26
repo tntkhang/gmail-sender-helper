@@ -31,7 +31,7 @@ public class GMailSender {
         return instance;
     }
 
-    public GMailSender withEmailAddress(String emailAddress) {
+    public GMailSender toEmailAddress(String emailAddress) {
         instance.emailAddress = emailAddress;
         return instance;
     }
