@@ -1,5 +1,5 @@
 ## This library help you to sent email by gmail 
-[ ![Download](https://api.bintray.com/packages/tntkhang/maven/gmail-sender-library/images/download.svg?version=1.2.0) ](https://bintray.com/tntkhang/maven/gmail-sender-library/1.2.0/link)
+[ ![Download](https://api.bintray.com/packages/tntkhang/maven/gmail-sender-library/images/download.svg) ](https://bintray.com/tntkhang/maven/gmail-sender-library/_latestVersion)
 
 # Setup
 1. Add to build.gradle in app level
