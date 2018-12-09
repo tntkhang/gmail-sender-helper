@@ -1,6 +1,8 @@
 ## This library help you to sent email by gmail 
 [ ![Download](https://api.bintray.com/packages/tntkhang/maven/gmail-sender-library/images/download.svg) ](https://bintray.com/tntkhang/maven/gmail-sender-library/_latestVersion)
 
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-gmail--sender--library-green.svg?style=flat )]( https://android-arsenal.com/details/1/7360 )
+
 # Setup
 1. Add to build.gradle in app level
 ```
