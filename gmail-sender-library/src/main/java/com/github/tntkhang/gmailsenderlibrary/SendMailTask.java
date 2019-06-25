@@ -6,6 +6,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -22,7 +24,7 @@ class SendMailTask extends AsyncTask<String, Void, String> {
     private String recipients;
     private GmailListener listener;
     private Session session;
-
+    private String dataSourceType =  "text/plain";
     SendMailTask(String subject, String body, String sender, String recipients, GmailListener listener, Session session) {
         this.subject = subject;
         this.body = body;
@@ -30,12 +32,21 @@ class SendMailTask extends AsyncTask<String, Void, String> {
         this.recipients = recipients;
         this.listener = listener;
         this.session = session;
+        if(isHtml(body)){
+            dataSourceType = "text/html";
+        }
+    }
+
+    private boolean isHtml(String data){
+        Pattern pattern = Pattern.compile("<(\\w+)( +.+)*>((.*))</\\1>");
+        Matcher matcher = pattern.matcher(data);
+        return matcher.find();
     }
 
     protected String doInBackground(String... urls) {
         String result = null;
         try {
-            DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
+            DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(),dataSourceType));
             MimeMessage message = new MimeMessage(session);
             message.setSender(new InternetAddress(sender));
             message.setSubject(subject);
