@@ -15,7 +15,7 @@ ext {
     gitUrl = 'https://github.com/tntkhang/gmail-sender-helper.git' // Replace by your url
     githubRepository= 'tntkhang/my-library-helper' // Replace by your url
 
-    libraryVersion = '1.2.0' // Increase whenever you update library version
+    libraryVersion = '1.3.0' // Increase whenever you update library version
 
     developerId = 'tntkhang' // Replace by your name
     developerName = 'KhangTran' // Replace by your name
@@ -38,8 +38,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.2.0"
+        versionCode 4
+        versionName "1.3.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
