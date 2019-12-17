@@ -8,7 +8,7 @@
 # Setup
 1. Add to build.gradle in app level
 ```
-implementation 'com.github.tntkhang:gmail-sender-library:1.2.0'
+implementation 'com.github.tntkhang:gmail-sender-library:1.3.0'
 ```
 
 2. How to use it
